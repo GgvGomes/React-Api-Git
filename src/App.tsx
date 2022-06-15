@@ -1,64 +1,72 @@
-import { useState, useEffect } from 'react'
-import logo from './logo.svg'
-import './App.css'
-import axios from 'axios'
+import { Route, Routes } from 'react-router-dom';
+import { Repo } from './pages/Repo'; 
+import { Repos } from './pages/Repos'; 
 
-type Repository = {
-    full_name: string,
-    description: string
+export function App()
+{
+    return (
+        <Routes>
+            <Route path='/' element={ <Repos /> } />
+            <Route path='/repos/*' element={ <Repo /> } />
+        </Routes>
+        )
 }
 
-function App()
-{
-    const [repositories, Setrepositories] = useState<Repository[]>([])
 
-    /*.then(response => response.json())*/
-    useEffect(() =>
+/* ================== Mais basico ================== */
+/*useEffect(() =>
     {
         axios.get('https://api.github.com/users/diego3g/repos')
             .then(response =>
             {
                 Setrepositories(response.data)
             })
-    }, [])
+    }, [])*/
 
-    var min = repositories.length / 2;
-    var max = repositories.length;
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-            </header>
+/* =============== Quase loading dahora ================ */
+ /*   < div className = "App" >
+        <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+        </header>
 
-            <div className="App-list">
-                <ul>
-                    {repositories.slice(0, min).map(repo =>
-                    {
-                        return (
-                            <li key={repo.full_name}>
-                                <strong>{repo.full_name}</strong>
-                                <p>{repo.description}</p>
-                            </li>
-                            )
-                    })
-                    }
-                </ul>
-                <ul>
-                    {repositories.slice(min, max).map(repo =>
-                    {
-                        return (
-                            <li key={repo.full_name}>
-                                <strong>{repo.full_name}</strong>
-                                <p>{repo.description}</p>
-                            </li>
-                            )
-                    })
-                    }
-                </ul>
-            </div>
-        </div>
-    )
+{
+    !error ?
+    <div className="App-list">
+
+        {isFetching && <div className='Load'>Carregando...</div>}
+
+        <ul>
+
+            {data ?
+                data.slice(0, min).map(repo =>
+                {
+                    return (
+                        <li key={repo.full_name}>
+                            <strong>{repo.full_name}</strong>
+                            <p>{repo.description}</p>
+                        </li>
+                    )
+                }) : data
+            }
+        </ul>
+
+        <ul>
+            {data ?
+                data.slice(min, max).map(repo =>
+                {
+                    return (
+                        <li key={repo.full_name}>
+                            <strong>{repo.full_name}</strong>
+                            <p>{repo.description}</p>
+                        </li>
+                    )
+                }) : data
+            }
+        </ul>
+
+    </div>
+    : <div></div>
 }
 
-export default App
+        </div >*/
