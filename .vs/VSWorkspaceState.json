@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\pages",
-    "\\src\\Services"
+    "\\src\\pages"
   ],
-  "SelectedNode": "\\src\\pages\\Repo.tsx",
+  "SelectedNode": "\\index.html",
   "PreviewInSolutionExplorer": false
 }

@@ -12,13 +12,21 @@ export type Repository = {
 
 export function Repos()
 {
+    const url = 'https://api.github.com/users/diego3g/repos'
+
     const { data, isFetching } = useQuery<Repository[]>('repos', async () =>
     {
-        const response = await axios.get('https://api.github.com/users/diego3g/repos')
+        try{
+            const response = await axios.get(url)
 
-        return response.data;
+            return response.data;
+        }catch(e){
+            console.log(e)
+        } finally {
+            console.log('we finish')
+        }
     }, {
-        /* ============= Não recarregar no periódo de tempo mostrado aqui ============ */
+        /* ============= NÃ£o recarregar no periodo de tempo mostrado aqui ============ */
         staleTime: 1000 * 60
 	})
 
