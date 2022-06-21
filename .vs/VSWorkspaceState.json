@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\pages",
+    "\\src\\Services"
   ],
+  "SelectedNode": "\\src\\pages\\Repo.tsx",
   "PreviewInSolutionExplorer": false
 }
