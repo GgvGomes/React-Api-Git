@@ -4,10 +4,16 @@ import '../App.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { Divider } from '../services/Divider'
 
 export type Repository = {
     full_name: string,
     description: string
+}
+
+export type References = {
+    from: number,
+    to: number
 }
 
 export function Repos()
@@ -30,6 +36,10 @@ export function Repos()
         staleTime: 1000 * 60
 	})
 
+    // const { references, setReferences } = useQuery<References[]>([]);
+
+    // setReferences(<Divider data={data? data.length : 0} space={2}/>)
+
     var min = data ? data.length / 2 : 0;
     var max = data ? data.length : 0;
 
@@ -43,21 +53,9 @@ export function Repos()
 
                 {isFetching && <div className='Load'>Carregando...</div>}
 
-                <ul>
-                    {data?.slice(0, min).map(repo =>
-                    {
-                        return (
-                            <li key={repo.full_name}>
-                                <Link to={`repos/${repo.full_name}`}>
-                                    <strong>{repo.full_name}</strong>
-                                </Link> 
-                                <p>{repo.description}</p>
-                            </li>
-                        )
-                    })}
-                </ul>
+                
 
-                <ul>
+                {/* <ul>
                     {data?.slice(min, max).map(repo =>
                     {
                         return (
@@ -69,7 +67,7 @@ export function Repos()
                             </li>
                         )
                     })}
-                </ul>
+                </ul> */}
 
             </div>
 
