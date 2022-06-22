@@ -4,7 +4,7 @@ import '../App.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { Divider } from '../services/Divider'
+import { Divider } from '../hooks/Divider'
 
 export type Repository = {
     full_name: string,
@@ -36,9 +36,11 @@ export function Repos()
         staleTime: 1000 * 60
 	})
 
-    // const { references, setReferences } = useQuery<References[]>([]);
-
+    // const [ references, setReferences ] = useQuery<References[]>([]);
     // setReferences(<Divider data={data? data.length : 0} space={2}/>)
+    // let Results = <Divider data={data? data.length : 1} space={2} />;
+    // console.log(data ? data.length : 1)
+    // console.log(Divider(data ? data.length : 1, 2))
 
     var min = data ? data.length / 2 : 0;
     var max = data ? data.length : 0;
