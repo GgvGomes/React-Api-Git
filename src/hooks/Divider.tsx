@@ -7,13 +7,17 @@ export type Dividers = {
 
 export function Divider(data: number, space: number)
 {
-    // const [ Intervals , setItervals ] = useState<Dividers[] | []>([]);
+    // var a = "cheguei no divider";
+    // return a;
     const [ Intervals , setItervals ] = useState<Dividers[]>([]);
 
     useEffect(() => {
         var Interval = data / space;
+        setItervals([])
 
-        for(var i = 0; i < data; i + Interval){
+        for(var i = 0; i < data; i = i + Interval){
+            console.log(i)
+            console.log(i + Interval)
             // array = {...array,
             //     from: i,
             //     to: i + Interval
@@ -25,7 +29,7 @@ export function Divider(data: number, space: number)
             setItervals(newArr)
         }
 
-    },[])
-
+    }) 
+    
     return Intervals;
 }
