@@ -1,19 +1,14 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import logo from '../logo.svg'
 import '../App.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import { Divider } from '../hooks/Divider'
+import { List } from './List'
 
 export type Repository = {
     full_name: string,
     description: string
-}
-
-export type References = {
-    from: number,
-    to: number
 }
 
 export function Repos()
@@ -36,14 +31,14 @@ export function Repos()
         staleTime: 1000 * 60
 	})
 
-    // const [ references, setReferences ] = useQuery<References[]>([]);
-    // setReferences(<Divider data={data? data.length : 0} space={2}/>)
-    // let Results = <Divider data={data? data.length : 1} space={2} />;
-    // console.log(data ? data.length : 1)
-    // console.log(Divider(data ? data.length : 1, 2))
+    // var min = data ? data.length / 2 : 0;
+    // var max = data ? data.length : 0;
 
-    var min = data ? data.length / 2 : 0;
-    var max = data ? data.length : 0;
+
+    // Ta com loop
+    // const dividers = Divider(data? data.length : 0, 2)
+    
+    // console.log(dividers)
 
     return (
         <div className="App">
@@ -55,21 +50,10 @@ export function Repos()
 
                 {isFetching && <div className='Load'>Carregando...</div>}
 
+                {/* <List List={data} divider={Divider(data? data.length : 1, 2)} ></List>     */}
+                {/* { List(data? data : [], Divider(data? data.length : 1, 2))  } */}
+                {/* { List(data? data : [], <Divider data ={data? data.length : 1} space={2} />)  } */}
                 
-
-                {/* <ul>
-                    {data?.slice(min, max).map(repo =>
-                    {
-                        return (
-                            <li key={repo.full_name}>
-                                <Link to={`repos/${repo.full_name}`}>
-                                    <strong>{repo.full_name}</strong>
-                                </Link> 
-                                <p>{repo.description}</p>
-                            </li>
-                        )
-                    })}
-                </ul> */}
 
             </div>
 

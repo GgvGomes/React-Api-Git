@@ -1,29 +1,51 @@
 import '../App.css'
-import { useQuery } from 'react-query'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 
-type Repository = {
+export type Repository = {
     full_name: string,
     description: string
 }
 
-export function List(data: Array<Repository>, min: number, max: number) {
-    
-    
+export type Dividers = {
+    from: number,
+    to: number,
+}
+
+export function List(List: Array<Repository>, divider: Array<Dividers> ) {    
 
     return(
-        <ul>
-            {data?.slice(0, min).map(repo => {
-                return (
-                    <li key={repo.full_name}>
-                        <Link to={`repos/${repo.full_name}`}>
-                            <strong>{repo.full_name}</strong>
-                        </Link>
-                        <p>{repo.description}</p>
-                    </li>
+        <div>
+            {divider.map( div => {
+                return(
+                    <ul>
+                        {List?.slice(div.from, div.to).map(repo => {
+                            return (
+                                <li key={repo.full_name}>
+                                    <Link to={`repos/${repo.full_name}`}>
+                                        <strong>{repo.full_name}</strong>
+                                    </Link>
+                                    <p>{repo.description}</p>
+                                </li>
+                            )
+                        })}
+                    </ul> 
                 )
-            })}
-        </ul>
+            })} 
+        </div>
     )
+    
+    // return(
+    //         <ul>
+    //             {data?.slice(div.from, div.to).map(repo => {
+    //                 return (
+    //                     <li key={repo.full_name}>
+    //                         <Link to={`repos/${repo.full_name}`}>
+    //                             <strong>{repo.full_name}</strong>
+    //                         </Link>
+    //                         <p>{repo.description}</p>
+    //                     </li>
+    //                 )
+    //             })}
+    //         </ul> 
+    // )
 }
