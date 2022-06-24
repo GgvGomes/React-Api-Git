@@ -3,7 +3,7 @@ import '../App.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { List } from './List'
-import { Repository } from '../Types'
+import { Repository } from '../types'
 import { Divider } from '../hooks/Divider'
 
 export function Repos()

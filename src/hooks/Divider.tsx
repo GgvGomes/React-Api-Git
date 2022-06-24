@@ -1,4 +1,4 @@
-import { Dividers } from "../Types";
+import { Dividers } from "../types";
 
 export function Divider<T = unknown>(data: Array<T>, space: number)
 {    
