@@ -1,35 +1,37 @@
-import { useEffect, useState } from 'react'
+import { Dividers } from "../Types";
 
-export type Dividers = {
-    from: number,
-    to: number,
-}
+export function Divider<T = unknown>(data: Array<T>, space: number)
+{    
+    // var min = data ? data.length / space : 0;
+    // var max = data ? data.length : 0;
 
-export function Divider(data: number, space: number)
-{
-    // var a = "cheguei no divider";
-    // return a;
-    const [ Intervals , setItervals ] = useState<Dividers[]>([]);
+    var Interval = parseInt((data ? data.length / space : 0).toFixed(0));
+        
+    let newArr:Dividers[] = []; // copying the old datas array
 
-    useEffect(() => {
-        var Interval = data / space;
-        setItervals([])
+    var from = 0;
+    var to = 0;
+    console.log(data.length)
+    console.log(Interval)
+    // Precisa arrumar caso a divisao n der o lenght certin
+    data.forEach((_,index) => 
+    {
+        var check = (from + Interval) - 1;
 
-        for(var i = 0; i < data; i = i + Interval){
-            console.log(i)
-            console.log(i + Interval)
-            // array = {...array,
-            //     from: i,
-            //     to: i + Interval
-            // }
+        if(index == check){
+            console.log('cheguei na posição' + index)
+            to += Interval;
 
-            let newArr = [...Intervals]; // copying the old datas array
-            newArr.push({ from: i, to: (i + Interval)}); // replace e.target.value with whatever you want to change it to
+            newArr.push({ from: from , to: to});
 
-            setItervals(newArr)
+            let VerifLength = to + 1;
+            if(VerifLength = data.length){
+                to += 1;
+            }
+
+            from = index;
         }
-
-    }) 
+    })
     
-    return Intervals;
+    return newArr;
 }

@@ -1,18 +1,14 @@
-// import { useState, useEffect } from 'react'
 import logo from '../logo.svg'
 import '../App.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import { Divider } from '../hooks/Divider'
 import { List } from './List'
-
-export type Repository = {
-    full_name: string,
-    description: string
-}
+import { Repository } from '../Types'
+import { Divider } from '../hooks/Divider'
 
 export function Repos()
 {
+    var space = 4;
     const url = 'https://api.github.com/users/diego3g/repos'
 
     const { data, isFetching } = useQuery<Repository[]>('repos', async () =>
@@ -31,30 +27,19 @@ export function Repos()
         staleTime: 1000 * 60
 	})
 
-    // var min = data ? data.length / 2 : 0;
-    // var max = data ? data.length : 0;
-
-
-    // Ta com loop
-    // const dividers = Divider(data? data.length : 0, 2)
+    var newArr = Divider(data? data : [], space);
+    console.log(newArr)
     
-    // console.log(dividers)
-
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
             </header>
 
-            <div className="App-list">
-
+            <div className='App-list'>
                 {isFetching && <div className='Load'>Carregando...</div>}
 
-                {/* <List List={data} divider={Divider(data? data.length : 1, 2)} ></List>     */}
-                {/* { List(data? data : [], Divider(data? data.length : 1, 2))  } */}
-                {/* { List(data? data : [], <Divider data ={data? data.length : 1} space={2} />)  } */}
-                
-
+                { List(data? data : [], newArr)  }
             </div>
 
         </div>
