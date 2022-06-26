@@ -5,33 +5,33 @@ export function Divider<T = unknown>(data: Array<T>, space: number)
     // var min = data ? data.length / space : 0;
     // var max = data ? data.length : 0;
 
+    var dataLimit = data.length - 1;
     var Interval = parseInt((data ? data.length / space : 0).toFixed(0));
-        
-    let newArr:Dividers[] = []; // copying the old datas array
 
+    let newArr:Dividers[] = []; // copying the old datas array
     var from = 0;
     var to = 0;
-    console.log(data.length)
-    console.log(Interval)
-    // Precisa arrumar caso a divisao n der o lenght certin
-    data.forEach((_,index) => 
+
+    data.forEach((_,index) =>   
     {
         var check = (from + Interval) - 1;
 
         if(index == check){
-            console.log('cheguei na posição' + index)
-            to += Interval;
+            to = from == 0 ? to + Interval - 1 : to + Interval;
+
+            if(newArr.length == (space - 1)){
+                to = to + (dataLimit - to)
+            }
 
             newArr.push({ from: from , to: to});
 
-            let VerifLength = to + 1;
-            if(VerifLength = data.length){
-                to += 1;
-            }
+            from = index + 1;
+        }else if(index == dataLimit && (newArr.length + 1) == space){
+            to = dataLimit;
 
-            from = index;
+            newArr.push({ from: from , to: to});
         }
     })
-    
+        
     return newArr;
 }

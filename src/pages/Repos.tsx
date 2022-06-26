@@ -3,7 +3,7 @@ import '../App.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { List } from './List'
-import { Repository } from '../types'
+import { Dividers, Repository } from '../types'
 import { Divider } from '../hooks/Divider'
 
 export function Repos()
@@ -26,7 +26,7 @@ export function Repos()
         /* ============= Não recarregar no periodo de tempo mostrado aqui ============ */
         staleTime: 1000 * 60
 	})
-
+    
     var newArr = Divider(data? data : [], space);
     console.log(newArr)
     
