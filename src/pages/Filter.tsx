@@ -11,7 +11,13 @@ export function Filter(){
         </div>
 
         <div>
-            <label>Selecione o número de colunas p/ ajustar a página:</label>
+            <label>Nome ou descrição de um repositório:</label>
+            <input type='text' placeholder="Insira o nome ou descrição de um repositório"></input>
+        </div>
+
+        <div>
+            {/* <label>Ajuste da disposição da página:</label> */}
+            <label>Ajustes da páginação:</label>
             <select>
                 <option value="1">1 coluna</option>
                 <option value="2" selected>2 colunas</option>
