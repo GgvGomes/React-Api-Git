@@ -5,6 +5,7 @@ import axios from 'axios'
 import { List } from './List'
 import { Dividers, Repository } from '../types'
 import { Divider } from '../hooks/Divider'
+import { Filter } from './Filter'
 
 export function Repos()
 {
@@ -36,8 +37,12 @@ export function Repos()
                 <img src={logo} className="App-logo" alt="logo" />
             </header>
 
+            <div className='App-filter'>
+                <Filter/>
+            </div>
+
             <div className='App-list'>
-                {isFetching && <div className='Load'>Carregando...</div>}
+                {/* {isFetching && <div className='Load'>Carregando...</div>} */}
 
                 { List(data? data : [], newArr)  }
             </div>
