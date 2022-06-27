@@ -139,6 +139,7 @@ button {
     background-color: rgb(97, 218, 251);
     border-color: rgb(97, 218, 251);
     border-radius: 6px;
+    min-width: 18vh;
     color: #282C34;
 }
 

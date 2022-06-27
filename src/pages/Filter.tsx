@@ -11,7 +11,7 @@ export function Filter(){
         </div>
 
         <div>
-            <label>Selecione o número de colunas para a página se ajustar:</label>
+            <label>Selecione o número de colunas p/ ajustar a página:</label>
             <select>
                 <option value="1">1 coluna</option>
                 <option value="2" selected>2 colunas</option>
@@ -20,7 +20,7 @@ export function Filter(){
             </select>
         </div>
 
-        <button>Filtrar <i className="fa fa-search" aria-hidden="true"></i></button>
+        <button><i className="fa fa-search" aria-hidden="true"></i>  Filtrar </button>
         </>
     )
 }
