@@ -132,7 +132,7 @@ button {
 select,
 input {
     /* cursor: pointer; */
-    font-size: 10pt;
+    font-size: 12pt;
     padding: 8px;
     margin-top: 1%;
     font-weight: 600;
@@ -145,7 +145,8 @@ input {
 }
 
 input {
-    padding: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     min-width: 48vh;
 }
 
@@ -153,10 +154,10 @@ button {
     cursor: pointer;
     background-color: rgb(97, 218, 251);
     border-color: rgb(97, 218, 251);
-    margin-top: 2.4%;
-    padding: 8px;
     font-size: 12pt;
     border-radius: 6px;
+    margin-top: 1.2%;
+    padding: 8px;
     min-width: 20vh;
     min-height: 5vh;
     color: #282C34;

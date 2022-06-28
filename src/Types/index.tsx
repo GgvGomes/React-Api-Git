@@ -7,3 +7,8 @@ export type Dividers = {
     from: number,
     to: number,
 }
+
+export type Users = {
+    login: string,
+    id: number
+}
