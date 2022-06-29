@@ -1,6 +1,6 @@
 import '../App.css'
 import { Link } from 'react-router-dom'
-import { Dividers, Repository } from '../types'
+import { Dividers, Repository } from '../../Types'
 
 export function List(List: Array<Repository>, divider: Array<Dividers> ) {    
 

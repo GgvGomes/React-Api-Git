@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Users } from "../types";
-import { ConstructPag } from "./Repos";
+import { Users } from "../../Types";
+import { ConstructPag } from "../../pages/Repos";
 
 export function Filter(){
 
