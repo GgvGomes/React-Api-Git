@@ -1,66 +1,84 @@
 import logo from '../logo.svg'
-import '../App.css'
+import '../global.css'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import { List } from '../components/List/List'
-import { Repository } from '../Types'
+import { List } from '../components/List'
+import { Dividers, Repository, Users } from '../Types'
+import { useEffect, useState } from 'react'
 import { Divider } from '../hooks/Divider'
-import { Filter } from '../components/Filter/Filter'
-import { useEffect } from 'react'
 
 // let url = 'https://api.github.com/users/diego3g/repos'
-var UserSelected:HTMLInputElement | null = null;
 let url = ''
-var space = 2;
 let search;
 
-export function Repos()
-{
+export function Repos() {
+    const [repository, setRepository] = useState<Repository[]>([]);
 
-    const { data, isFetching, refetch } = url == '' ? useQuery<Repository[]>([]) : useQuery<Repository[]>('repos', async () =>
-    {
-        try{
-            const response = await axios.get(url)
+    const [userSelected, setUserSelected] = useState<string>('');
+    const [nameDescription, setNameDescription] = useState<string>('');
+    const [pagination, setPagination] = useState<any>(2);
+    const [newArr, setnNwArr] = useState<Dividers[]>([]);
+
+    const urlUsers = 'https://api.github.com/users';
+
+    const { data, isFetching } = useQuery<Users[]>('users', async () => {
+        try {
+            const response = await axios.get(urlUsers)
 
             return response.data;
-        }catch(e){
+        } catch (e) {
             console.log(e)
         } finally {
             console.log('we finish')
         }
-    }// , {
+    }, {
         /* ============= Não recarregar no periodo de tempo mostrado aqui ============ */
-        //staleTime: 1000 * 60
-    //}
-    )
+        staleTime: 1000 * 60
+    })
 
+    function handleConstructPagination() {
 
-    useEffect(() => { 
-        // if(UserSelected?.value == null){
-        //     alert('ta vazio')
-        // }else{
-            refetch()
-        // }
-    }, [url])
+        console.log(userSelected)
+        console.log(nameDescription)
+        console.log(pagination)
 
-        // if(search != null){
-        //     console.log('entrei no shearch')
-        //     console.log('/'+search+'/')
-    
-        //         data?.map((find,index) => {
-    
-        //             if( find.description.match('/'+search+'/') ||
-        //                 find.full_name.match('/'+search+'/')){}else{
-        //                     console.log('remover a posição '+ index)
-    
-        //                     data.splice(index, 1)
-        //                 }
-        //         })
-        // }
-    
+        url = 'https://api.github.com/users/' + userSelected + '/repos'
 
-    var newArr = Divider(data? data : [], space);
-    
+        async function featchData() {
+            const response = await fetch('https://api.github.com/users/' + userSelected + '/repos');
+            const data = await response.json();
+
+            setRepository(data)
+        }
+
+        if(nameDescription != ''){
+            var arrayExcludes: number[] = [];
+
+            console.log('procurando')
+            repository.forEach((repo,index) =>   
+            {
+                // if( (repo.full_name).match('/'+ nameDescription +'/') || (repo.description).match('/'+ nameDescription +'/') ){
+                if( (repo.full_name).includes(nameDescription) || (repo.description).includes(nameDescription) ){
+                    console.log(repo)
+                }else{
+                    console.log('exclui   ' + index)
+                    arrayExcludes.push(index)
+                }
+
+            })
+
+            arrayExcludes.map(position => {
+                repository.slice(position)
+            })
+        }
+
+        featchData();
+    }
+
+    useEffect(() => {
+        setnNwArr(Divider(repository, pagination))
+    }, [repository])
+
     return (
         <div className="App">
             <header className="App-header">
@@ -68,33 +86,53 @@ export function Repos()
             </header>
 
             <div className='App-filter'>
-                <Filter/>
+                <div>
+                    <label>Selecione um usuário:</label>
+                    <select
+                        id="UserSelect"
+                        onChange={e => setUserSelected(e.target.value)}
+                    >
+                        <option value="">Selecione um usuário</option>
+
+                        {data?.map(user => {
+                            return (
+                                <option key={user.id} value={user.login}>
+                                    {user.login}
+                                </option>
+                            )
+                        })}
+                    </select>
+                </div>
+
+                <div>
+                    <label>Nome ou descrição de um repositório:</label>
+                    <input
+                        id="NameDescription"
+                        type='text'
+                        placeholder="Insira o nome ou descrição de um repositório"
+                        onChange={e => setNameDescription(e.target.value)}
+                    ></input>
+                </div>
+
+                <div>
+                    <label>Ajustes da páginação:</label>
+                    <select id="Pagination" defaultValue={2} onChange={e => setPagination(e.target.value)}>
+                        <option value={1}>1 coluna</option>
+                        <option value={2}>2 colunas</option>
+                        <option value={3}>3 colunas</option>
+                        <option value={4}>4 colunas</option>
+                    </select>
+                </div>
+
+                <button onClick={handleConstructPagination}><i className="fa fa-search" aria-hidden="true"></i>  Filtrar </button>
             </div>
 
             <div className='App-list'>
-                {isFetching && <div className='Load'>Carregando...</div>}
+                {/* {isFetching && <div className='Load'>Carregando...</div>} */}
 
-                { List(data? data : [], newArr)  }
+                {repository && List(repository, newArr)}
+
             </div>
         </div>
     )
-}
-
-export function ConstructPag(){
-    UserSelected = document.getElementById('UserSelect') as HTMLInputElement | null;
-    var NameDescription = document.getElementById("NameDescription") as HTMLInputElement | null;
-    var Pagination = document.getElementById("Pagination") as HTMLInputElement;
-
-    console.log(UserSelected?.value)
-    console.log(NameDescription?.value)
-    console.log(Pagination?.value)
-
-    url = 'https://api.github.com/users/'+ UserSelected?.value +'/repos';
-    space = Pagination.value as unknown as number;
-
-    if(NameDescription?.value != null){
-       search =  NameDescription?.value;
-    }else{
-        search = null;
-    }
 }

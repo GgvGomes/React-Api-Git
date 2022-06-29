@@ -1,15 +1,16 @@
-import '../App.css'
+import '../../global.css'
 import { Link } from 'react-router-dom'
 import { Dividers, Repository } from '../../Types'
 
-export function List(List: Array<Repository>, divider: Array<Dividers> ) {    
+export function List(repository: Array<Repository>, newArr: Array<Dividers>) {
 
-    return(
+    return (
         <>
-            {divider.map( div => {
-                return(
-                    <ul>
-                        {List?.slice(div.from, div.to).map(repo => {
+            {newArr.map(div => {
+                return (
+                    <ul key={div.from + '-' + div.to}>
+
+                        {repository.slice(div.from, div.to).map(repo => {
                             return (
                                 <li key={repo.full_name}>
                                     <Link to={`repos/${repo.full_name}`}>
@@ -19,9 +20,9 @@ export function List(List: Array<Repository>, divider: Array<Dividers> ) {
                                 </li>
                             )
                         })}
-                    </ul> 
+                    </ul>
                 )
-            })} 
+            })}
         </>
     )
 }
