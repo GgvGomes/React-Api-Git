@@ -1,5 +1,4 @@
 import 'animate.css';
-import '../global.css'
 import logo from '../logo.svg'
 import { useQuery } from 'react-query'
 import axios from 'axios'
@@ -7,8 +6,8 @@ import { List } from '../components/List'
 import { Dividers, Repository, Users } from '../Types'
 import { useEffect, useState } from 'react'
 import { Divider } from '../hooks/Divider'
+import { UseModalContext } from '../components/Modal/modal.context';
 // import { Modal } from '../components/Modal';
-// import Modal from 'react-modal'
 
 let url = ''
 
@@ -20,8 +19,6 @@ export function Repos() {
     const [nameDescription, setNameDescription] = useState<string>('');
     const [pagination, setPagination] = useState<any>(2);
     const [newArr, setNewArr] = useState<Dividers[]>([]);
-    
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const urlUsers = 'https://api.github.com/users';
 
@@ -47,9 +44,9 @@ export function Repos() {
             const response = await fetch('https://api.github.com/users/' + userSelected + '/repos');
             const data = await response.json();
 
-            if(nameDescription != ''){
+            if (nameDescription != '') {
                 setTemporaryRepository(data)
-            }else{
+            } else {
                 setRepository(data)
             }
         }
@@ -57,32 +54,28 @@ export function Repos() {
         featchData();
     }
 
-    function handleModalOpen(){
-        setModalIsOpen(true)
-    }
-
-    function handleModalClose(){
-        setModalIsOpen(false)
-    }
+    // console.log(UseModalContext())
+    // const openModal = UseModalContext;
+    // const handleModalOpen = () => openModal({message: 'teste 123'})
+    const handleModalOpen = () => alert('aaaaa')
 
     useEffect(() => {
         setNewArr(Divider(repository, pagination))
     }, [repository])
 
     useEffect(() => {
-        if(nameDescription != ''){
+        if (nameDescription != '') {
             var NewRepo: Repository[] = [];
 
             console.log('procurando')
-            temporaryRepository.forEach((repo) =>   
-            {
+            temporaryRepository.forEach((repo) => {
                 // if( (repo.full_name).match('/'+ nameDescription +'/') || (repo.description).match('/'+ nameDescription +'/') ){
-                if(repo.description){
-                    if((repo.full_name).indexOf(nameDescription) != -1 || (repo.description).indexOf(nameDescription) != -1 ){
+                if (repo.description) {
+                    if ((repo.full_name).indexOf(nameDescription) != -1 || (repo.description).indexOf(nameDescription) != -1) {
                         NewRepo.push(repo)
                     }
-                }else{
-                    if((repo.full_name).indexOf(nameDescription) != -1){
+                } else {
+                    if ((repo.full_name).indexOf(nameDescription) != -1) {
                         NewRepo.push(repo)
                     }
                 }
@@ -91,7 +84,7 @@ export function Repos() {
 
             setRepository(NewRepo);
         }
-    },[temporaryRepository])
+    }, [temporaryRepository])
 
     return (
         <div className="App">

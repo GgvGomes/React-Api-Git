@@ -1,14 +1,19 @@
 import { Route, Routes } from 'react-router-dom';
+import { ModalProvider } from './components/Modal/modal.context';
 import { Repo } from './pages/Repo'; 
 import { Repos } from './pages/Repos'; 
+// import 'antd/dist/antd.css'
+import './global.css'
 
 export function App()
 {
     return (
-        <Routes>
-            <Route path='/' element={ <Repos /> } />
-            <Route path='/repos/*' element={ <Repo /> } />
-        </Routes>
+        <ModalProvider>
+            <Routes>
+                <Route path='/' element={ <Repos /> } />
+                <Route path='/repos/*' element={ <Repo /> } />
+            </Routes>
+        </ModalProvider>
         )
 }
 

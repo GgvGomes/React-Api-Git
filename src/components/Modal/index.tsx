@@ -1,9 +1,17 @@
 import './style.css'
+import { Modal as ModalComponent } from 'antd'
+import { UseModalContext } from './modal.context'
 
-export function Modal(props: any){
-    return(
-        <div className='modal'>
+export const Modal = () => {
+    // const { modalState: {message, visible}, closeModal } = UseModalContext()
 
-        </div>
+    return (
+        <ModalComponent 
+            // onCancel={closeModal} 
+            // onOk={closeModal} 
+            // visible={visible}
+        >
+            {/* <p>{message}</p> */}
+        </ModalComponent>
     )
 }
