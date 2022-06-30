@@ -1,23 +1,27 @@
-import logo from '../logo.svg'
+import 'animate.css';
 import '../global.css'
+import logo from '../logo.svg'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import { List } from '../components/List'
 import { Dividers, Repository, Users } from '../Types'
 import { useEffect, useState } from 'react'
 import { Divider } from '../hooks/Divider'
+// import { Modal } from '../components/Modal';
+// import Modal from 'react-modal'
 
-// let url = 'https://api.github.com/users/diego3g/repos'
 let url = ''
-let search;
 
 export function Repos() {
     const [repository, setRepository] = useState<Repository[]>([]);
+    const [temporaryRepository, setTemporaryRepository] = useState<Repository[]>([]);
 
     const [userSelected, setUserSelected] = useState<string>('');
     const [nameDescription, setNameDescription] = useState<string>('');
     const [pagination, setPagination] = useState<any>(2);
-    const [newArr, setnNwArr] = useState<Dividers[]>([]);
+    const [newArr, setNewArr] = useState<Dividers[]>([]);
+    
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const urlUsers = 'https://api.github.com/users';
 
@@ -37,47 +41,57 @@ export function Repos() {
     })
 
     function handleConstructPagination() {
-
-        console.log(userSelected)
-        console.log(nameDescription)
-        console.log(pagination)
-
         url = 'https://api.github.com/users/' + userSelected + '/repos'
 
         async function featchData() {
             const response = await fetch('https://api.github.com/users/' + userSelected + '/repos');
             const data = await response.json();
 
-            setRepository(data)
-        }
-
-        if(nameDescription != ''){
-            var arrayExcludes: number[] = [];
-
-            console.log('procurando')
-            repository.forEach((repo,index) =>   
-            {
-                // if( (repo.full_name).match('/'+ nameDescription +'/') || (repo.description).match('/'+ nameDescription +'/') ){
-                if( (repo.full_name).includes(nameDescription) || (repo.description).includes(nameDescription) ){
-                    console.log(repo)
-                }else{
-                    console.log('exclui   ' + index)
-                    arrayExcludes.push(index)
-                }
-
-            })
-
-            arrayExcludes.map(position => {
-                repository.slice(position)
-            })
+            if(nameDescription != ''){
+                setTemporaryRepository(data)
+            }else{
+                setRepository(data)
+            }
         }
 
         featchData();
     }
 
+    function handleModalOpen(){
+        setModalIsOpen(true)
+    }
+
+    function handleModalClose(){
+        setModalIsOpen(false)
+    }
+
     useEffect(() => {
-        setnNwArr(Divider(repository, pagination))
+        setNewArr(Divider(repository, pagination))
     }, [repository])
+
+    useEffect(() => {
+        if(nameDescription != ''){
+            var NewRepo: Repository[] = [];
+
+            console.log('procurando')
+            temporaryRepository.forEach((repo) =>   
+            {
+                // if( (repo.full_name).match('/'+ nameDescription +'/') || (repo.description).match('/'+ nameDescription +'/') ){
+                if(repo.description){
+                    if((repo.full_name).indexOf(nameDescription) != -1 || (repo.description).indexOf(nameDescription) != -1 ){
+                        NewRepo.push(repo)
+                    }
+                }else{
+                    if((repo.full_name).indexOf(nameDescription) != -1){
+                        NewRepo.push(repo)
+                    }
+                }
+
+            })
+
+            setRepository(NewRepo);
+        }
+    },[temporaryRepository])
 
     return (
         <div className="App">
@@ -86,7 +100,7 @@ export function Repos() {
             </header>
 
             <div className='App-filter'>
-                <div>
+                <div className='AnimationLeft'>
                     <label>Selecione um usuário:</label>
                     <select
                         id="UserSelect"
@@ -104,7 +118,7 @@ export function Repos() {
                     </select>
                 </div>
 
-                <div>
+                <div className='AnimationLeft'>
                     <label>Nome ou descrição de um repositório:</label>
                     <input
                         id="NameDescription"
@@ -114,7 +128,7 @@ export function Repos() {
                     ></input>
                 </div>
 
-                <div>
+                <div className='AnimationRight'>
                     <label>Ajustes da páginação:</label>
                     <select id="Pagination" defaultValue={2} onChange={e => setPagination(e.target.value)}>
                         <option value={1}>1 coluna</option>
@@ -124,7 +138,7 @@ export function Repos() {
                     </select>
                 </div>
 
-                <button onClick={handleConstructPagination}><i className="fa fa-search" aria-hidden="true"></i>  Filtrar </button>
+                <button className='AnimationRight' onClick={userSelected ? handleConstructPagination : handleModalOpen}><i className="fa fa-search" aria-hidden="true"></i>  Filtrar </button>
             </div>
 
             <div className='App-list'>
