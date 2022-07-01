@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { Divider } from '../hooks/Divider'
 import { UseModalContext } from '../components/Modal/modal.context';
 // import { Modal } from '../components/Modal';
+import { Modal } from 'react-bootstrap'
 
 let url = ''
 
