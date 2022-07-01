@@ -9,10 +9,7 @@ import { Dividers, Repository, Users } from '../Types'
 import { Divider } from '../hooks/Divider'
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { border } from "@mui/system";
 
 let url = ''
 
@@ -31,7 +28,7 @@ export function Repos() {
     const handleOpen = () => {
         setRepository([]);
         setModalShow(true);
-        
+
         DivModal = document.getElementById("Modal-User");
         if(DivModal != null){
             DivModal.classList.remove('hidden')
