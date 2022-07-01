@@ -1,17 +1,12 @@
-import './style.css'
-import { Modal as ModalComponent } from 'antd'
-import { UseModalContext } from './modal.context'
+import React from "react";
+import "./style.css";
 
-export const Modal = () => {
-    // const { modalState: {message, visible}, closeModal } = UseModalContext()
+export const Modal = (props:any) => {
+    const { className, modalRef } = props;
 
-    return (
-        <ModalComponent 
-            // onCancel={closeModal} 
-            // onOk={closeModal} 
-            // visible={visible}
-        >
-            {/* <p>{message}</p> */}
-        </ModalComponent>
+    return(
+        <div ref={modalRef} className={`${className} modal`}>
+            <p>Meu modal!</p>
+        </div>
     )
 }

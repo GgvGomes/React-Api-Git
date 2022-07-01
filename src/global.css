@@ -123,6 +123,55 @@ button:hover {
 
 
 /* **************
+     Modal
+   ************** */
+
+.hidden {
+    animation: Modal-hidde 0.8s cubic-bezier(0.25, 0.46, 0.45, 1);
+}
+
+.MuiBox-root {
+    color: black;
+    padding: 16px!important;
+    animation: App-logo-show 1s cubic-bezier(0.25, 0.46, 0.45, 1)
+}
+
+.MuiBox-root h2 {
+    font-weight: 600;
+    font-size: 25pt;
+    margin: 0%;
+}
+
+.Body-title {
+    display: flex;
+    min-height: 5vh;
+    border-bottom: 0.5px solid gainsboro;
+    padding-bottom: 2px;
+}
+
+.MuiBox-root #modal-description {
+    padding-left: 6px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    font-size: 12pt;
+}
+
+.Modal-Fotter {
+    border-top: 0.5px solid gainsboro;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Modal-Fotter button {
+    min-height: 5vh;
+    min-width: 15vh;
+    padding: 0px;
+    margin-top: 2%
+}
+
+
+/* **************
      Animations
    ************** */
 
@@ -180,5 +229,16 @@ button:hover {
     to {
         opacity: 1;
         transform: translateX(0%);
+    }
+}
+
+@keyframes Modal-hidde {
+    from {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(35%);
+        opacity: 0;
     }
 }

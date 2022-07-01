@@ -1,14 +1,18 @@
-import 'animate.css';
 import logo from '../logo.svg'
+
 import { useQuery } from 'react-query'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
+
 import { List } from '../components/List'
 import { Dividers, Repository, Users } from '../Types'
-import { useEffect, useState } from 'react'
 import { Divider } from '../hooks/Divider'
-import { UseModalContext } from '../components/Modal/modal.context';
-// import { Modal } from '../components/Modal';
-import { Modal } from 'react-bootstrap'
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { border } from "@mui/system";
 
 let url = ''
 
@@ -20,6 +24,43 @@ export function Repos() {
     const [nameDescription, setNameDescription] = useState<string>('');
     const [pagination, setPagination] = useState<any>(2);
     const [newArr, setNewArr] = useState<Dividers[]>([]);
+
+    const [modalShow, setModalShow] = useState(false);
+    var DivModal = document.getElementById("Modal-User") as HTMLElement | null;
+
+    const handleOpen = () => {
+        setRepository([]);
+        setModalShow(true);
+        
+        DivModal = document.getElementById("Modal-User");
+        if(DivModal != null){
+            DivModal.classList.remove('hidden')
+        }
+    }
+
+    const handleClose = () =>  {
+        DivModal = document.getElementById("Modal-User");
+        if(DivModal != null){       
+            DivModal.classList.add('hidden');
+            DivModal.addEventListener('animationstart',ModalHide)
+        }
+    }
+
+    const ModalHide = () => setTimeout(() => {setModalShow(false)}, 700);
+
+    const style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        borderRadius: '10px',
+        minHeight: '10vh',
+        boxShadow: 24,
+        p: 4,
+    };
 
     const urlUsers = 'https://api.github.com/users';
 
@@ -54,11 +95,6 @@ export function Repos() {
 
         featchData();
     }
-
-    // console.log(UseModalContext())
-    // const openModal = UseModalContext;
-    // const handleModalOpen = () => openModal({message: 'teste 123'})
-    const handleModalOpen = () => alert('aaaaa')
 
     useEffect(() => {
         setNewArr(Divider(repository, pagination))
@@ -132,14 +168,33 @@ export function Repos() {
                     </select>
                 </div>
 
-                <button className='AnimationRight' onClick={userSelected ? handleConstructPagination : handleModalOpen}><i className="fa fa-search" aria-hidden="true"></i>  Filtrar </button>
+                <button className='AnimationRight' onClick={userSelected ? handleConstructPagination : handleOpen}><i className="fa fa-search" aria-hidden="true"></i>  Filtrar </button>
             </div>
 
             <div className='App-list'>
-                {/* {isFetching && <div className='Load'>Carregando...</div>} */}
-
                 {repository && List(repository, newArr)}
 
+                <Modal
+                    id='Modal-User'
+                    open={modalShow}
+                    onClose={handleClose}
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
+                >
+                    <Box sx={style}>
+                        <div className='Body-title'>
+                            <h2 id="modal-title">Atenção</h2>
+                        </div>
+
+                        <div className='Body-modal'>
+                            <p id="modal-description">Informe um usuário para efetuar a busca.</p>
+                        </div>
+
+                        <div className='Modal-Fotter'>
+                            <button onClick={handleClose}>Fechar</button>
+                        </div>
+                    </Box>
+                </Modal>
             </div>
         </div>
     )
