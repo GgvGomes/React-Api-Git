@@ -1,7 +1,7 @@
 import '../../global.css'
 import './style.css'
 import { Link } from 'react-router-dom'
-import { Dividers, Repository } from '../../Types'
+import { Dividers, Repository } from '../../types'
 
 export function List(repository: Array<Repository>, newArr: Array<Dividers>) {
 
