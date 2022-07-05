@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import { List } from '../components/List'
-import { Dividers, Repository, Users } from '../types'
+import { Dividers, Repository, Users } from '../Types'
 import { Divider } from '../hooks/Divider'
 
 import Box from '@mui/material/Box';

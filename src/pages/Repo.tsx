@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom"
-import { Repository } from "../types";
+import { Repository } from "../Types";
 
 export function Repo()
 {
