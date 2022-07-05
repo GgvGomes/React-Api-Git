@@ -1,7 +1,7 @@
 {
     "name": "reactapi",
     "private": true,
-    "homepage": "React-Api-Git/",
+    "homepage": "react-api-git/",
     "version": "0.0.0",
     "scripts": {
         "dev": "vite",
