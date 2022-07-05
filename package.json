@@ -1,13 +1,12 @@
 {
     "name": "reactapi",
     "private": true,
-    "homepage": "https://ggvgomes.github.io/React-Api-Git/",
+    "homepage": "./",
     "version": "0.0.0",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "preview": "vite preview",
-        "publicar": "npm run build && ./node_modules/.bin/gh-pages -d build"
+        "preview": "vite preview"
     },
     "dependencies": {
         "@emotion/react": "^11.9.3",
