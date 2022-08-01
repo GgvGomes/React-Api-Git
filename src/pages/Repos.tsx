@@ -22,6 +22,14 @@ export function Repos() {
     const [pagination, setPagination] = useState<any>(2);
     const [newArr, setNewArr] = useState<Dividers[]>([]);
 
+    
+    // var temporaryRepository = nameDescription.length > 0 ?
+    // repository.filter(repo =>  handleFilter(repo)) : [];
+    // const handleFilter = (repo : {full_name: string, description: string}) => {
+    //     if(repo.full_name.includes(nameDescription) || repo.description.includes(nameDescription))
+    //         return repo;
+    // }
+
     const [modalShow, setModalShow] = useState(false);
     var DivModal = document.getElementById("Modal-User") as HTMLElement | null;
 
@@ -95,7 +103,7 @@ export function Repos() {
 
     useEffect(() => {
         setNewArr(Divider(repository, pagination))
-    }, [repository])
+    }, [repository ])
 
     useEffect(() => {
         if (nameDescription != '') {
